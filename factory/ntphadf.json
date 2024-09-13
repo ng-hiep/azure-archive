@@ -1,0 +1,9 @@
+{
+	"name": "ntphadf",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "63fa3520-951a-4c23-96da-d52603c93c88",
+		"tenantId": "f01e930a-b52e-42b1-b70f-a8882b5d043b"
+	}
+}
