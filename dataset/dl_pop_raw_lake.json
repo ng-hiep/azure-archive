@@ -1,0 +1,24 @@
+{
+	"name": "dl_pop_raw_lake",
+	"properties": {
+		"description": "sink",
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "population_by_age.tsv",
+				"fileSystem": "pop-raw"
+			},
+			"columnDelimiter": "\t",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
