@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ntphadf"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureDatabricks1_accessToken": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
+		"ls_blob_storage_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://ntphstoragedl.dfs.core.windows.net/"
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"value": "0910-030126-uoljqhwg"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "ntphserver.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "ntphsqldb"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "adm"
+		},
+		"check_storage_properties_typeProperties_scope": {
+			"value": "/subscriptions/a9e4cd6d-b268-42e2-bf68-ff1e23ca8f96/resourceGroups/rg_fsa_qnh_qn24_fr_de_01/providers/Microsoft.Storage/storageAccounts/ntphstoragedl"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
