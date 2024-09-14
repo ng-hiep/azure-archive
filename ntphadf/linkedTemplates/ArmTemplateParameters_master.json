@@ -14,6 +14,9 @@
 		"AzureSqlDatabase1_password": {
 			"value": ""
 		},
+		"AzureSqlDatabase_AW_password": {
+			"value": ""
+		},
 		"ls_blob_storage_connectionString": {
 			"value": ""
 		},
@@ -30,6 +33,15 @@
 			"value": "ntphsqldb"
 		},
 		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "adm"
+		},
+		"AzureSqlDatabase_AW_properties_typeProperties_server": {
+			"value": "ntphserver.database.windows.net"
+		},
+		"AzureSqlDatabase_AW_properties_typeProperties_database": {
+			"value": "ntphAdventureWorksLT"
+		},
+		"AzureSqlDatabase_AW_properties_typeProperties_userName": {
 			"value": "adm"
 		},
 		"check_storage_properties_typeProperties_scope": {
