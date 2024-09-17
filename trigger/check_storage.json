@@ -1,7 +1,7 @@
 {
 	"name": "check_storage",
 	"properties": {
-		"description": "Desc",
+		"description": "check if file arrived in the blob storage or be deleted from blob storage",
 		"annotations": [],
 		"runtimeState": "Started",
 		"pipelines": [
