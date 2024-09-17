@@ -3,7 +3,7 @@
 	"properties": {
 		"description": "check if file arrived in the blob storage or be deleted from blob storage",
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
