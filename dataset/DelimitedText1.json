@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "invoices.json",
 				"fileSystem": "adf-trigger"
 			},
 			"columnDelimiter": ",",
