@@ -59,6 +59,10 @@
 			"type": "string",
 			"defaultValue": "adm"
 		},
+		"demo_event_storage_trigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/a9e4cd6d-b268-42e2-bf68-ff1e23ca8f96/resourceGroups/rg_fsa_qnh_qn24_fr_de_01/providers/Microsoft.Storage/storageAccounts/ntphstoragedl"
+		},
 		"check_storage_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/a9e4cd6d-b268-42e2-bf68-ff1e23ca8f96/resourceGroups/rg_fsa_qnh_qn24_fr_de_01/providers/Microsoft.Storage/storageAccounts/ntphstoragedl"
@@ -165,6 +169,28 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/demo_event_storage_trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "check if file exist or be deleted",
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/adf-trigger/blobs/invoices.json",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('demo_event_storage_trigger_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated",
+						"Microsoft.Storage.BlobDeleted"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -226,6 +252,24 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase_AW",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_AW')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -239,6 +283,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "invoices.json",
 						"fileSystem": "adf-trigger"
 					},
 					"columnDelimiter": ",",
@@ -250,6 +295,24 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SqlDBTables')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase_AW",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_AW')]"
 			]
 		},
 		{
@@ -339,42 +402,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SqlDBTables')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase_AW",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_AW')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlTable2')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabase_AW",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase_AW')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/parquetTables')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -401,7 +428,7 @@
 							"type": "Expression"
 						},
 						"folderPath": {
-							"value": "@concat('bronze', dataset().schemaname, '/', dataset().tablename)",
+							"value": "@concat('bronze', '/', dataset().schemaname, '/', dataset().tablename)",
 							"type": "Expression"
 						},
 						"fileSystem": "aw-demo"
@@ -518,7 +545,7 @@
 										"source": {
 											"type": "AzureSqlSource",
 											"sqlReaderQuery": {
-												"value": "@(concat('select * from ', item().SchemaName, ',', item().TableName))",
+												"value": "@{concat('select * from ', item().SchemaName, '.', item().TableName)}",
 												"type": "Expression"
 											},
 											"queryTimeout": "02:00:00",
@@ -627,6 +654,10 @@
 								"hehehe": {
 									"value": "@pipeline().parameters.p_today",
 									"type": "Expression"
+								},
+								"file_name": {
+									"value": "@activity('check').output.itemName",
+									"type": "Expression"
 								}
 							}
 						},
@@ -654,7 +685,8 @@
 								"parameters": {}
 							},
 							"fieldList": [
-								"exists"
+								"exists",
+								"itemName"
 							],
 							"storeSettings": {
 								"type": "AzureBlobFSReadSettings",
@@ -871,9 +903,9 @@
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "Desc",
+				"description": "check if file arrived in the blob storage or be deleted from blob storage",
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
