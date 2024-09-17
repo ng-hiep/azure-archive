@@ -44,6 +44,9 @@
 		"AzureSqlDatabase_AW_properties_typeProperties_userName": {
 			"value": "adm"
 		},
+		"ls_http_1_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/cloudboxacademy/covid19/main/ecdc_data/cases_deaths.csv"
+		},
 		"check_storage_properties_typeProperties_scope": {
 			"value": "/subscriptions/a9e4cd6d-b268-42e2-bf68-ff1e23ca8f96/resourceGroups/rg_fsa_qnh_qn24_fr_de_01/providers/Microsoft.Storage/storageAccounts/ntphstoragedl"
 		},
