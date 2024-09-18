@@ -9,13 +9,8 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"dataset": {
-						"referenceName": "ds_pop_raw",
-						"type": "DatasetReference"
-					},
 					"timeout": "0.12:00:00",
-					"sleep": 600,
-					"minimumSize": 2048
+					"sleep": 600
 				}
 			},
 			{
@@ -39,10 +34,6 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataset": {
-						"referenceName": "ds_pop_raw",
-						"type": "DatasetReference"
-					},
 					"fieldList": [
 						"columnCount",
 						"size",
@@ -131,22 +122,8 @@
 										"fileExtension": ".txt"
 									}
 								},
-								"enableStaging": false,
-								"translator": {
-									"type": "TabularTranslator",
-									"typeConversion": true,
-									"typeConversionSettings": {
-										"allowDataTruncation": true,
-										"treatBooleanAsNumber": false
-									}
-								}
+								"enableStaging": false
 							},
-							"inputs": [
-								{
-									"referenceName": "ds_pop_raw",
-									"type": "DatasetReference"
-								}
-							],
 							"outputs": [
 								{
 									"referenceName": "dl_pop_raw_lake",
