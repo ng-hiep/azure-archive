@@ -1,26 +1,19 @@
 {
-	"name": "ds_csv_from_http",
+	"name": "test_copy_from_http",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_http_1",
 			"type": "LinkedServiceReference",
 			"parameters": {
-				"sourceBaseURL": {
-					"value": "@dataset().baseURL",
-					"type": "Expression"
-				}
-			}
-		},
-		"parameters": {
-			"baseURL": {
-				"type": "string"
+				"sourceBaseURL": "https://raw.githubusercontent.com/"
 			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "HttpServerLocation"
+				"type": "HttpServerLocation",
+				"relativeUrl": "cloudboxacademy/covid19/main/ecdc_data/hospital_admissions.csv"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

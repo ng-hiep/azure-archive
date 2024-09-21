@@ -1,18 +1,12 @@
 {
-	"name": "ds_csv_from_http",
+	"name": "snk_ecdc",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_http_1",
-			"type": "LinkedServiceReference",
-			"parameters": {
-				"sourceBaseURL": {
-					"value": "@dataset().baseURL",
-					"type": "Expression"
-				}
-			}
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"baseURL": {
+			"snk_file_name": {
 				"type": "string"
 			}
 		},
@@ -20,7 +14,13 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "HttpServerLocation"
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().snk_file_name",
+					"type": "Expression"
+				},
+				"folderPath": "raw/ecdc",
+				"fileSystem": "ecdc-data"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
