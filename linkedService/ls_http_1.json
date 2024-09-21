@@ -5,6 +5,9 @@
 		"parameters": {
 			"sourceBaseURL": {
 				"type": "string"
+			},
+			"sourceRelativeURL": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
