@@ -98,7 +98,13 @@
 							"inputs": [
 								{
 									"referenceName": "src_ecdc_http",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"relativeURL": {
+											"value": "@item().value.sourceRelativeURL",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
