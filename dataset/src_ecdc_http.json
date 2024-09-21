@@ -1,5 +1,5 @@
 {
-	"name": "test_copy_from_http",
+	"name": "src_ecdc_http",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_http_1",
@@ -9,7 +9,7 @@
 			}
 		},
 		"parameters": {
-			"file_name": {
+			"relativeURL": {
 				"type": "string"
 			}
 		},
@@ -18,7 +18,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "cloudboxacademy/covid19/main/ecdc_data/hospital_admissions.csv"
+				"relativeUrl": {
+					"value": "@dataset().relativeURL",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
