@@ -1,7 +1,7 @@
 {
 	"name": "ls_http_1",
 	"properties": {
-		"description": "crawl .csv file from web",
+		"description": "Crawl .csv file from web",
 		"parameters": {
 			"sourceBaseURL": {
 				"type": "string"
